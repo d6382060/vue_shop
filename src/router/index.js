@@ -1,25 +1,40 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Home from '../views/Home.vue'
-
+const Login = () => import('../components/Login')
+const Home = () => import('../views/home/Home')
 const routes = [
+  { path: '/', redirect: '/login' }, // 重定向
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: '/login',
+    name: 'Login',
+    component: Login,
+    meta: {
+      title: '首页-登录'
+    }
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/home',
+    name: 'home',
+    component: Home,
+    meta: {
+      title: '主页'
+    }
   }
 ]
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes
+})
+
+// 导航守卫
+router.beforeEach((to, from, next) => {
+  if (to.path === '/login') return next();
+  // 获取token
+  const token = window.sessionStorage.getItem('token')
+  if (!token) return next('/login')
+  next()
+  // 获取标题并且赋值 meta 里面的 title
+  document.title = to.meta.title
 })
 
 export default router

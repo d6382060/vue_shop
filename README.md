@@ -37,3 +37,9 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 - 登录页面的布局--使用 Element-UI 布局
 - - 使用的组件：el-from el-from-item el-input el-button 字体图标
+
+## git
+
+- git status =>查看当前目录有是否干净
+- git chenkout -b 名字 => 创建一个分支
+- git baranch =>查看当前所处分支
