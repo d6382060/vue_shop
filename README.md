@@ -42,4 +42,5 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 - git status =>查看当前目录有是否干净
 - git chenkout -b 名字 => 创建一个分支
+- git checkout => 切换分支
 - git baranch =>查看当前所处分支
