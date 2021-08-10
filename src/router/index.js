@@ -1,6 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 const Login = () => import('../components/Login')
 const Home = () => import('../views/home/Home')
+const Welcome = () => import('../views/home/ChildComps/Welcome')
+const Users = () => import('../views/user/Users')
 const routes = [
   { path: '/', redirect: '/login' }, // 重定向
   {
@@ -15,10 +17,31 @@ const routes = [
     path: '/home',
     name: 'home',
     component: Home,
+    redirect: '/welcome',  // 在访问主路由的时候重定向到子路由
+    children: [ // 子路由
+      {
+        path: '/welcome',
+        name: 'Welcome',
+        component: Welcome,
+        meta: {
+          title: '欢迎使用'
+        }
+      },
+      {
+        path: '/users',
+        name: 'Users',
+        component: Users,
+        meta: {
+          title: '用户列表'
+        }
+      },
+    ],
     meta: {
-      title: '主页'
+      title: '首页'
     }
-  }
+  },
+
+
 ]
 
 const router = createRouter({

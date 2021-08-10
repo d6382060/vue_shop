@@ -43,4 +43,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - git status =>查看当前目录有是否干净
 - git chenkout -b 名字 => 创建一个分支
 - git checkout => 切换分支
-- git baranch =>查看当前所处分支
+- git branch =>查看当前所处分支
+- 合并分支
+- - git merge \*\*\*\* 要合并的分支名称
+- 在远程创建分支
+- - git push -u origin \*\*\*(分支名称)
