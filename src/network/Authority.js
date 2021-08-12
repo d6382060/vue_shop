@@ -7,3 +7,11 @@ export function getMneus () {
   })
 }
 
+// 所有权限列表
+export function getrightsList () {
+  return request({
+    url: 'rights/list'
+  })
+}
+
+

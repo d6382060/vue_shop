@@ -3,6 +3,8 @@ const Login = () => import('../components/Login')
 const Home = () => import('../views/home/Home')
 const Welcome = () => import('../views/home/ChildComps/Welcome')
 const Users = () => import('../views/user/Users')
+const Rights = () => import('../views/power/Rights')
+const Roles = () => import('../views/power/Roles')
 const routes = [
   { path: '/', redirect: '/login' }, // 重定向
   {
@@ -33,6 +35,22 @@ const routes = [
         component: Users,
         meta: {
           title: '用户列表'
+        }
+      },
+      {
+        path: '/rights',
+        name: 'Rights',
+        component: Rights,
+        meta: {
+          title: '权限管理-权限列表'
+        }
+      },
+      {
+        path: '/roles',
+        name: 'Roles',
+        component: Roles,
+        meta: {
+          title: '权限管理-角色列表'
         }
       },
     ],

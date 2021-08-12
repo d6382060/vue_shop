@@ -69,6 +69,7 @@
               placement="top"
             >
               <el-button
+                @click="setRole(row)"
                 type="warning"
                 icon="el-icon-setting"
                 size="mini"
@@ -156,13 +157,48 @@
         </span>
       </template>
     </el-dialog>
+    <!-- 分配角色角色的对话框 -->
+    <el-dialog
+      @close="setRoleDialogClosed"
+      title="分配角色"
+      v-model="setRoleDialogVisible"
+      width="50%"
+    >
+      <div>
+        <p>当前的用户：{{ userInfo.username }}</p>
+        <p>当前的角色：{{ userInfo.role_name }}</p>
+        <p>
+          分配新角色：
+          <el-select v-model="selectdRoleId" placeholder="请选择">
+            <el-option
+              v-for="item in rolesList"
+              :key="item.id"
+              :label="item.roleName"
+              :value="item.id"
+            >
+            </el-option>
+          </el-select>
+        </p>
+      </div>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="setRoleDialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="saveRoleInfo">确 定</el-button>
+        </span>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { onMounted, reactive, toRefs, ref, defineComponent } from 'vue'
-import { deletetUserInfo, editUser, getusersList, modifyStatus, addusers, getUsersInfo } from '../../network/user'
+import {
+  deletetUserInfo,
+  editUser, getusersList,
+  modifyStatus, addusers,
+  getUsersInfo, geDistributetRolesList, Distributetusers
+} from '../../network/user'
 export default defineComponent(
   {
     name: 'Users',
@@ -247,6 +283,20 @@ export default defineComponent(
 
       // 查询到的用户信息
       let editFrom = ref({})
+
+      // 分配角色的对话框显示
+      let setRoleDialogVisible = ref(false)
+      // 需要被分配角色的用户信息
+      let userInfo = reactive({
+        username: '',
+        role_name: '',
+        id: ''
+      })
+
+      // 所有角色的数据列表
+      let rolesList = ref([])
+      // 以选中的角色ID值
+      let selectdRoleId = ref('')
       // 初始化 用户列表数据
       const int = () => {
         getusersList(queryInfo).then(res => {
@@ -332,7 +382,7 @@ export default defineComponent(
         editFromRef.value.resetFields()
 
       }
-      // 点击按钮修改 ，用户信息
+      // 点击确定按钮修改 ，用户信息
       const editUserInfo = () => {
         editFromRef.value.validate(valid => {
           if (!valid) return
@@ -364,7 +414,6 @@ export default defineComponent(
 
               }
             })
-          console.log(valid);
         })
       }
       // 展示编辑用户的对话框
@@ -418,6 +467,59 @@ export default defineComponent(
             });
           });
       }
+      //  分配角色按钮事件处理函数
+      const setRole = (userInfos) => {
+        userInfo.username = userInfos.username
+        userInfo.role_name = userInfos.role_name
+        userInfo.id = userInfos.id
+        // 在展示对话框之前获取所有角色的列表
+        geDistributetRolesList().then(res => {
+          if (res.data.meta.status !== 200) {
+            return ElMessage({
+              showClose: true,
+              message: '查询用户信息失败',
+              type: 'error'
+            })
+
+          }
+          rolesList.value = res.data.data
+          console.log(res);
+        })
+        setRoleDialogVisible.value = true
+      }
+
+      // 点击按钮分配角色----角色分配面板
+      const saveRoleInfo = () => {
+        if (!selectdRoleId.value) {
+          return ElMessage({
+            showClose: true,
+            message: '请选择要分配的角色',
+            type: 'error'
+          })
+        }
+        Distributetusers(userInfo.id, selectdRoleId.value).then(res => {
+          if (res.data.meta.status !== 200) {
+            return ElMessage({
+              showClose: true,
+              message: res.data.meta.msg,
+              type: 'error'
+            })
+
+          }
+          ElMessage({
+            type: 'success',
+            message: res.data.meta.msg,
+          });
+          setRoleDialogVisible.value = false
+          int()
+        })
+
+      }
+
+      // 监听 分配角色对话框的关闭事件
+      const setRoleDialogClosed = () => {
+        selectdRoleId.value = ''
+      }
       onMounted(() => {
         int()
       })
@@ -439,7 +541,14 @@ export default defineComponent(
         editFromDialogClosed,
         editFromRef,
         editUserInfo,
-        deleteUser
+        deleteUser,
+        setRoleDialogVisible,
+        setRole,
+        userInfo,
+        rolesList,
+        selectdRoleId,
+        saveRoleInfo,
+        setRoleDialogClosed
 
       }
 
