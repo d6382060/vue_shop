@@ -7,7 +7,9 @@ module.exports = {
       "component",
       {
         "libraryName": "element-ui",
-        "styleLibraryName": "theme-chalk"
+        customStyleName: (name) => {
+          return `element-plus/lib/theme-chalk/${name}.css`;
+        }
       }
     ]
   ]

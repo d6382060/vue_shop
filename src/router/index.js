@@ -5,6 +5,7 @@ const Welcome = () => import('../views/home/ChildComps/Welcome')
 const Users = () => import('../views/user/Users')
 const Rights = () => import('../views/power/Rights')
 const Roles = () => import('../views/power/Roles')
+const Cate = () => import('../views/goods/Cate')
 const routes = [
   { path: '/', redirect: '/login' }, // 重定向
   {
@@ -51,6 +52,14 @@ const routes = [
         component: Roles,
         meta: {
           title: '权限管理-角色列表'
+        }
+      },
+      {
+        path: '/categories',
+        name: 'Cate',
+        component: Cate,
+        meta: {
+          title: '欢迎商品管理-商品分类'
         }
       },
     ],

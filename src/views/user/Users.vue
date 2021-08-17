@@ -300,7 +300,8 @@ export default defineComponent(
       // 初始化 用户列表数据
       const int = () => {
         getusersList(queryInfo).then(res => {
-          if (res.status !== 200) return ElMessage.error('获取用户列表失败')
+          if (res.status !== 200)
+            return ElMessage.error('获取用户列表失败')
           userslist.userlist = res.data.data.users
           userslist.total = res.data.data.total
 
