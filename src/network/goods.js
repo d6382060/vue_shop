@@ -40,10 +40,66 @@ export function getCatename (id) {
 
 
 // 删除分类
-// 查询分类名称
 export function deleteCategories (id) {
   return request({
     url: `categories/${id}`,
     method: 'delete'
+  })
+}
+
+//  参数列表
+export function getAttributeslist (id, data) {
+  return request({
+    url: `categories/${id}/attributes`,
+    params: {
+      sel: data
+    }
+  })
+}
+
+//  添加动态参数或者静态属性
+export function addAttributes (id, data) {
+  return request({
+    url: `categories/${id}/attributes`,
+    method: 'post',
+    data
+  })
+}
+
+//   根据 ID 查询参数
+export function getIdattrId (id, attrId, sel) {
+  return request({
+    url: `categories/${id}/attributes/${attrId}`,
+    params: {
+      attr_sel: sel
+    }
+  })
+}
+
+//   编辑提交参数
+export function editPushAttrId (id, attrId, data) {
+  return request({
+    url: `categories/${id}/attributes/${attrId}`,
+    method: 'put',
+    data
+  })
+}
+
+
+//   删除参数
+export function deleteAttrids (id, attrId) {
+  return request({
+    url: `categories/${id}/attributes/${attrId}`,
+    method: 'delete',
+  })
+}
+
+
+//    编辑提交参数
+export function editSubmitAttrId (id, attrId, data) {
+  return request({
+    url: `categories/${id}/attributes/${attrId}`,
+    method: 'put',
+    data
   })
 }

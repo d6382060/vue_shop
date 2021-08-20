@@ -9,7 +9,7 @@ import {
   ElCard, ElRow, ElCol, ElTable, ElTableColumn,
   ElSwitch, ElTooltip, ElPagination, ElDialog,
   ElMessageBox, ElTag, ElTree, ElSelect, ElOption,
-  ElResult, ElIcon, ElCascader
+  ElResult, ElIcon, ElCascader, ElAlert, ElTabs, ElTabPane
 } from 'element-plus';
 import 'element-plus/lib/theme-chalk/index.css';
 import './assets/fonts/iconfont.css'
@@ -22,6 +22,7 @@ createApp(App).use(router).use(ElButton).use(ElForm).use(ElFormItem)
   .use(ElTable).use(ElTableColumn).use(ElSwitch).use(ElTooltip)
   .use(ElHeader).use(ElAside).use(ElMain).use(ElBreadcrumb).use(ElBreadcrumbItem)
   .use(ElMenu).use(ElSubmenu).use(ElMenuItem).use(ElCard).use(ElRow)
-  .use(ElDialog).use(ElMessageBox).use(ElTag).use(ElTree)
+  .use(ElDialog).use(ElMessageBox).use(ElTag).use(ElTree).use(ElAlert)
   .use(ElSelect).use(ElOption).use(ElResult).use(ElIcon).use(ElCascader)
+  .use(ElTabs).use(ElTabPane)
   .mount('#app')

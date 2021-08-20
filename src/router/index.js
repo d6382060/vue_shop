@@ -6,6 +6,7 @@ const Users = () => import('../views/user/Users')
 const Rights = () => import('../views/power/Rights')
 const Roles = () => import('../views/power/Roles')
 const Cate = () => import('../views/goods/Cate')
+const Params = () => import('../views/goods/Params')
 const routes = [
   { path: '/', redirect: '/login' }, // 重定向
   {
@@ -59,7 +60,15 @@ const routes = [
         name: 'Cate',
         component: Cate,
         meta: {
-          title: '欢迎商品管理-商品分类'
+          title: '商品管理-商品分类'
+        }
+      },
+      {
+        path: '/params',
+        name: 'Params',
+        component: Params,
+        meta: {
+          title: '商品管理-分类参数'
         }
       },
     ],
