@@ -7,6 +7,8 @@ const Rights = () => import('../views/power/Rights')
 const Roles = () => import('../views/power/Roles')
 const Cate = () => import('../views/goods/Cate')
 const Params = () => import('../views/goods/Params')
+const GoodsList = () => import('../views/goods/GoodsList')
+const Add = () => import('../views/goods/Add')
 const routes = [
   { path: '/', redirect: '/login' }, // 重定向
   {
@@ -17,6 +19,7 @@ const routes = [
       title: '首页-登录'
     }
   },
+
   {
     path: '/home',
     name: 'home',
@@ -64,18 +67,44 @@ const routes = [
         }
       },
       {
+        path: '/goods',
+        name: 'GoodsList',
+        component: GoodsList,
+        meta: {
+          title: '商品管理-商品列表'
+        }
+      },
+      {
         path: '/params',
         name: 'Params',
         component: Params,
         meta: {
-          title: '商品管理-分类参数'
+          title: '商品管理-参数列表'
+        }
+      },
+      {
+        path: '/welcome',
+        name: 'Welcome',
+        component: Welcome,
+        meta: {
+          title: '欢迎使用'
+        }
+      },
+      {
+        path: '/goods/add',
+        name: 'Add',
+        component: Add,
+        meta: {
+          title: '添加用户'
         }
       },
     ],
     meta: {
       title: '首页'
-    }
-  },
+    },
+
+
+  }
 
 
 ]

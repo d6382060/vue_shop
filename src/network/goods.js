@@ -103,3 +103,31 @@ export function editSubmitAttrId (id, attrId, data) {
     data
   })
 }
+
+
+//    商品列表数据
+export function getGoodsListData (params) {
+  return request({
+    url: 'goods',
+    params
+  })
+}
+
+
+
+//    删除商品
+export function deleteCommodity (id) {
+  return request({
+    url: `goods/${id}`,
+    method: 'delete',
+  })
+}
+
+//    添加商品
+export function addCommodity (data) {
+  return request({
+    url: 'goods',
+    method: 'post',
+    data
+  })
+}
