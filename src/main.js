@@ -10,7 +10,7 @@ import {
   ElSwitch, ElTooltip, ElPagination, ElDialog, ElLoading,
   ElMessageBox, ElTag, ElTree, ElSelect, ElOption, ElSteps,
   ElResult, ElIcon, ElCascader, ElAlert, ElTabs, ElTabPane,
-  ElUpload
+  ElUpload, ElTimeline, ElTimelineItem
 } from 'element-plus';
 import 'element-plus/lib/theme-chalk/index.css';
 import './assets/fonts/iconfont.css'
@@ -29,5 +29,6 @@ createApp(App).use(router).use(ElButton).use(ElForm).use(ElFormItem)
   .use(ElDialog).use(ElMessageBox).use(ElTag).use(ElTree).use(ElAlert)
   .use(ElSelect).use(ElOption).use(ElResult).use(ElIcon).use(ElCascader)
   .use(ElTabs).use(ElTabPane).use(ElSteps).use(ElStep).use(ElUpload)
+  .use(ElTimeline).use(ElTimelineItem)
   .component('QuillEditor', QuillEditor)
   .mount('#app')

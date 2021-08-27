@@ -131,3 +131,12 @@ export function addCommodity (data) {
     data
   })
 }
+
+//    编辑提交商品
+export function editSubmiCommodity (id, data) {
+  return request({
+    url: `goods/${id}/`,
+    method: 'put',
+    data
+  })
+}

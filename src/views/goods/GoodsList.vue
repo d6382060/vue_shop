@@ -60,7 +60,7 @@
             <!-- 修改按钮 -->
             <el-button
               v-loading.fullscreen.lock="loading"
-              @click="showEditDialog(row.goods_id)"
+              @click="showEditDialog(row)"
               type="primary"
               icon="el-icon-edit"
               size="mini"
@@ -89,15 +89,39 @@
       >
       </el-pagination>
     </el-card>
+    <!-- 修改用户的对话框 -->
+    <el-dialog title="修改用户信息" v-model="editDialogVisible" width="50%">
+      <!-- 修改用户的面板 -->
+      <el-form :model="info" ref="editFromRef" label-width="70px">
+        <el-form-item label="商品名称">
+          <el-input v-model="info.goods_name"></el-input>
+        </el-form-item>
+        <el-form-item label="商品价格">
+          <el-input v-model="info.goods_price"></el-input>
+        </el-form-item>
+        <el-form-item label="商品重量">
+          <el-input v-model="info.goods_weight"></el-input>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="editDialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="editUserInfo">确 定</el-button>
+        </span>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import { getGoodsListData, deleteCommodity } from '../../network/goods'
+import { showDate } from '../../common/utils'
+import { editSubmiCommodity, getGoodsListData, deleteCommodity } from '../../network/goods'
 export default {
   name: 'GoodsList',
   data () {
     return {
+      info: {},
+      editDialogVisible: false,
       // 商品列表数据
       goodsList: [],
       // 查询参数对象
@@ -114,6 +138,7 @@ export default {
     }
   },
   methods: {
+
     // 获取商品列表数据
     getGoodsList () {
       getGoodsListData(this.goodsInfo).then(res => {
@@ -179,30 +204,34 @@ export default {
     goAddpage () {
       this.$router.push('/goods/add')
     },
-    showEditDialog () {
-      console.log(666);
+    showEditDialog (row) {
+      console.log(row);
+      this.info = row
+      this.editDialogVisible = true
+
+    },
+
+    editUserInfo () {
+      console.log(this.info);
+      this.$refs.editFromRef.validate(
+        valid => {
+          if (!valid) {
+            return this.$message.error('请填写必要的表单项目')
+          }
+          // 执行添加的业务逻辑
+
+        }
+      )
     }
   },
   computed: {
     showDate () {
-      let time = ''
-      this.goodsList.forEach(item => {
-        time = item.add_time
-      });
-      const dt = new Date(time)
-
-      const y = dt.getFullYear()
-      const m = (dt.getMonth() + 1 + '').padStart(2, '0')
-      const d = (dt.getDate() + '').padStart(2, '0')
-      const hh = (dt.getHours() + '').padStart(2, '0')
-      const mm = (dt.getMinutes() + '').padStart(2, '0')
-      const ss = (dt.getSeconds() + '').padStart(2, '0')
-
-      return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+      return showDate(this.goodsList)
     }
   },
   created () {
     this.getGoodsList()
+
 
   },
 }

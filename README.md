@@ -22,6 +22,8 @@ npm run build
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
+# 查询物流的接口貌似不能用，查询物流功能未完成，订单列表 修改功能没有接口，包括商品列表的修改操作也没有接口
+
 笔记：
 
 # 登录/退出功能

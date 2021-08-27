@@ -9,6 +9,7 @@ const Cate = () => import('../views/goods/Cate')
 const Params = () => import('../views/goods/Params')
 const GoodsList = () => import('../views/goods/GoodsList')
 const Add = () => import('../views/goods/Add')
+const Order = () => import('../views/order/Order')
 const routes = [
   { path: '/', redirect: '/login' }, // 重定向
   {
@@ -91,11 +92,19 @@ const routes = [
         }
       },
       {
-        path: '/goods/add',
-        name: 'Add',
-        component: Add,
+        path: '/orders',
+        name: 'Order',
+        component: Order,
         meta: {
-          title: '添加用户'
+          title: '订单管理'
+        }
+      },
+      {
+        path: '/users',
+        name: 'Users',
+        component: Users,
+        meta: {
+          title: '用户列表'
         }
       },
     ],
