@@ -100,13 +100,17 @@
       </template>
     </el-dialog>
     <!-- 展示物流进度的对话框 -->
-    <el-dialog
-      @close="addresssDialogClose"
-      title="物流进度"
-      v-model="progressVisible"
-      width="50%"
-    >
+    <el-dialog title="物流进度" v-model="progressVisible" width="50%">
       <!-- 展示物流进度的对话框 -->
+      <el-timeline>
+        <el-timeline-item
+          v-for="(activity, index) in activities"
+          :key="index"
+          :timestamp="activity.timestamp"
+        >
+          {{ activity.content }}
+        </el-timeline-item>
+      </el-timeline>
     </el-dialog>
   </div>
 </template>
@@ -122,6 +126,16 @@ export default {
   // 验证规则
   data () {
     return {
+      activities: [{
+        content: '活动按期开始',
+        timestamp: '2018-04-15'
+      }, {
+        content: '通过审核',
+        timestamp: '2018-04-13'
+      }, {
+        content: '创建成功',
+        timestamp: '2018-04-11'
+      }],
       addressRules: {
         address1: [
           { required: true, message: '请选择省市区县', trigger: 'blur' }
